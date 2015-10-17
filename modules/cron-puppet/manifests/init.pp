@@ -17,7 +17,7 @@ class cron-puppet {
   }
   file { '/usr/local/sbin/puppet-update.sh':
     ensure => file,
-    source => 'puppet:///modules/cron-puppet/puppet-update.sh'
+    source => 'puppet:///modules/cron-puppet/puppet-update.sh',
     owner  => root,
     group  => root,
     mode   => 0755,
