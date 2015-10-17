@@ -1,5 +1,14 @@
-define users::user ($uid, $gid, $shell, $ssh_key) {
+define users::user ($uid, $gid, $shell, $groups, $ssh_key) {
   $home = "/home/${name}"
+
+  group { $name:
+    ensure => present,
+    gid    => $gid,
+  }
+
+  group { $groups:
+    ensure => present,
+  }
 
   user { $name:
     ensure         => present,
@@ -7,8 +16,10 @@ define users::user ($uid, $gid, $shell, $ssh_key) {
     shell          => $shell,
     uid            => $uid,
     gid            => $gid,
-    groups         => [$name],
+    groups         => $groups,
+    password       => '*',
     purge_ssh_keys => true,
+    require        => [Group[$name], Group[$groups]],
   }
 
   file { $home:
