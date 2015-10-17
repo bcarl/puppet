@@ -1,0 +1,21 @@
+---
+users::users:
+  bcarl:
+    ensure: present
+    home: /home/bcarl
+    shell: /bin/bash
+    uid: 1000
+    gid: 1000
+    groups:
+      - bcarl
+    managehome: true
+    purge_ssh_keys: true
+users::groups:
+  bcarl:
+    ensure: present
+    gid: 1000
+users::ssh_keys:
+  'brandon@bcarl.me':
+    user: bcarl
+    type: ssh-rsa
+    key: 'AAAAB3NzaC1yc2EAAAABIwAAAQEAy6fP8KHjsl0W4XUSi6WSNqBI2hjHmYmpA3qxOeZQwBGjqmtiLhAkN/2MNDuBHOcczGt4SzkVs4mej4HYyEt9Pc2C6aupavaWiBRwyyGirJNSR0JEKpx0WyfyzBqr04rTsVzyOOBI/Bw1GWQEaNQRo4yho3v4674FFoPmyQAuHFo6LMK73+2SRTccjn5prb+vvy1BMoieyjGZ3PqdRvy8Qc3FOGRsdbFcIK5gcIMu55EJW9u/oyHXZ1415CAD8D3UVIPU0VjfEdlPv6x8MhDPhhRF966v0Hmt+WtDKPWxKXDNO0juUOJL8SmZoYFt2oBn+vOw1YbN0cu61GnTUNDsrw=='
