@@ -16,9 +16,7 @@ ssh::storeconfigs_enabled: true
 ssh::server_options:
   PasswordAuthentication: no
   PermitRootLogin: no
-  Port:
-    - 22
-    - 2422
+  Port: 2422
   Protocol: 2
   PubkeyAuthentication: yes
   RSAAuthentication: yes
