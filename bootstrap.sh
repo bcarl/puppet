@@ -10,9 +10,9 @@ apt-get -y install git-core puppet
 git clone "https://github.com/bcarl/puppet.git" /etc/puppet
 
 # Install Puppet modules
-puppet module install puppetlabs-stdlib
-puppet module install saz-ssh
-puppet module install saz-sudo
+for module in puppetlabs-firewall puppetlabs-stdlib saz-ssh saz-sudo; do
+  puppet module install $module
+done
 
 # Run Puppet initially to set up the auto-deploy mechanism
 puppet apply /etc/puppet/manifests/site.pp

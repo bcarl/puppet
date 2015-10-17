@@ -4,3 +4,4 @@ modules/concat
 modules/ssh
 modules/stdlib
 modules/sudo
+modules/firewall

@@ -6,9 +6,7 @@ define users::user ($uid, $gid, $shell, $groups, $ssh_key) {
     gid    => $gid,
   }
 
-  group { $groups:
-    ensure => present,
-  }
+  ensure_resource('group', $groups, {ensure => present})
 
   user { $name:
     ensure         => present,
