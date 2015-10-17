@@ -33,7 +33,7 @@ define users::user ($uid, $gid, $shell, $groups, $ssh_key) {
   $bash_profile = "${home}/.bash_profile"
 
   concat { $bash_profile:
-    ensure => directory,
+    ensure => present,
     owner  => $name,
     group  => $name,
     mode   => 0700,
