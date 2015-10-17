@@ -3,9 +3,9 @@ users::users:
   bcarl:
     uid: 1000
     gid: 1000
-    shell: /bin/bash
     groups:
       - sudo
+    shell: /bin/bash
     ssh_key:
       comment: brandon@bcarl.me
       type: ssh-rsa

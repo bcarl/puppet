@@ -30,6 +30,29 @@ define users::user ($uid, $gid, $shell, $groups, $ssh_key) {
     require => User[$name],
   }
 
+  $bash_profile = "${home}/.bash_profile"
+
+  concat { $bash_profile:
+    ensure => directory,
+    owner  => $name,
+    group  => $name,
+    mode   => 0700,
+    ensure_newline => true,
+  }
+  concat::fragment { "${bash_profile} header":
+    target => $bash_profile,
+    source => 'puppet:///modules/users/header.bash_profile',
+    order  => '01',
+  }
+  concat::fragment { "${bash_profile} user":
+    target => $bash_profile,
+    source => [
+      "puppet:///modules/users/${name}.bash_profile",
+      'puppet:///modules/users/default.bash_profile',
+    ],
+    order  => '02',
+  }
+
   $ssh_dir = "${home}/.ssh"
 
   file { $ssh_dir:
