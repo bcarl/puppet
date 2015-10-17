@@ -17,6 +17,7 @@ ssh::server_options:
   AllowUsers: bcarl
   DenyUsers: root
   PasswordAuthentication: no
+  PermitEmptyPasswords: no
   PermitRootLogin: no
   Port: 2422
   Protocol: 2
