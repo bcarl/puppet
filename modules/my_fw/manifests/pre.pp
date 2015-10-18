@@ -42,7 +42,7 @@ class my_fw::pre {
   firewall { '002 reject local traffic not on loopback interface (v6)':
     iniface     => '! lo',
     proto       => 'all',
-    destination => '::1',
+    destination => '::1/128',
     action      => 'reject',
     provider    => 'ip6tables',
   }->
