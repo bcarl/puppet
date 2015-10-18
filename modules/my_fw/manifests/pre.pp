@@ -29,7 +29,7 @@ class my_fw::pre {
   }
   # Default firewall rules (v6)
   firewall { '000 accept all icmp (v6)':
-    proto    => 'icmp',
+    proto    => 'ipv6-icmp',
     action   => 'accept',
     provider => 'ip6tables',
   }->
