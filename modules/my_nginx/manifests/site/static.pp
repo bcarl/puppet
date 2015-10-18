@@ -13,7 +13,7 @@ define my_nginx::site::static ($ssl=true, $html=undef, $default_server=false) {
     mode => '0755',
   }
 
-  if $html {
+  if $html != undef {
     file { "${vhost_dir}/index.html":
       ensure => present,
       content => $html,
