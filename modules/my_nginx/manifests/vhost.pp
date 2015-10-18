@@ -1,4 +1,4 @@
-define my_nginx::vhost($ssl => false) {
+define my_nginx::vhost($ssl=false) {
   nginx::resource::vhost { $name:
     www_root   => '/var/www/${name}',
     ssl        => $ssl,
