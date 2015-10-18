@@ -1,6 +1,6 @@
 node 'dev.bcarl.me' {
   include common
-  include my_nginx
+  include my_sites
 }
 
 node default {

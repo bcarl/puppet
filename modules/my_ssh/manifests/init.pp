@@ -23,12 +23,12 @@ class my_ssh ($port = 2422) {
     dport    => $port,
     proto    => tcp,
     action   => accept,
-    provider => 'iptables',
+    provider => iptables,
   }
   firewall { '006 Allow inbound SSH (v6)':
     dport    => $port,
     proto    => tcp,
     action   => accept,
-    provider => 'ip6tables',
+    provider => ip6tables,
   }
 }

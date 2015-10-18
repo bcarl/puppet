@@ -1,0 +1,3 @@
+---
+nginx::config::spdy: 'on'
+nginx::config::vhost_purge: true
