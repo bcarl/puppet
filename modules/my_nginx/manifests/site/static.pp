@@ -1,7 +1,4 @@
 define my_nginx::site::static ($html, $ssl=true, $default_server=false) {
-  include nginx::config
-  include nginx::params
-  include my_nginx
   include my_nginx::params
 
   $vhost_dir = "${my_nginx::params::wwwroot}/${name}"

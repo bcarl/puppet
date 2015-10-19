@@ -2,7 +2,6 @@ define my_nginx::vhost ($ssl=true, $default_server=false, $vhost_dir=undef, $pur
   include my_nginx
   include my_nginx::params
 
-
   if $vhost_dir {
     $vhost_dir_actual = $vhost_dir
   } else {

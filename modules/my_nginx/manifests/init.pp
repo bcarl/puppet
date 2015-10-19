@@ -2,7 +2,8 @@ class my_nginx {
   include nginx
   include my_nginx::params
 
-  file { [$my_nginx::params::certdir, $my_nginx::params::wwwroot, $my_nginx::params::gitroot]:
+  file { [$my_nginx::params::certdir, $my_nginx::params::wwwroot,
+          $my_nginx::params::gitroot, $my_nginx::params::buildroot]:
     ensure => directory,
     owner  => root,
     group  => root,
