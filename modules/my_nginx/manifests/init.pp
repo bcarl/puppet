@@ -5,6 +5,7 @@ class my_nginx {
   file { '/var/www/html':
     ensure => absent,
     force  => true,
+    require => Package['nginx'],
   }
 
   file { [$my_nginx::params::certdir, $my_nginx::params::wwwroot,
