@@ -4,6 +4,7 @@ class my_nginx {
 
   file { '/var/www/html':
     ensure => absent,
+    force  => true,
   }
 
   file { [$my_nginx::params::certdir, $my_nginx::params::wwwroot,
