@@ -28,6 +28,8 @@ my_packages::packages:
   - git
   - git-core
   - openssl
+  - rubygems
+  - ruby-dev
   - rsync
   - wget
 
