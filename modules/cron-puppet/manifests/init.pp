@@ -15,6 +15,13 @@ class cron-puppet {
     minute  => '*/30',
     require => File['post-hook'],
   }
+  file { '/usr/local/sbin/puppet-apply.sh':
+    ensure => file,
+    source => 'puppet:///modules/cron-puppet/puppet-apply.sh',
+    owner  => root,
+    group  => root,
+    mode   => 0755,
+  }
   file { '/usr/local/sbin/puppet-update.sh':
     ensure => file,
     source => 'puppet:///modules/cron-puppet/puppet-update.sh',
