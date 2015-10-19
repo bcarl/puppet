@@ -4,8 +4,6 @@ define my_nginx::site::jekyll ($repo, $branch='master', $ssl=true) {
   include my_nginx
   include my_nginx::params
 
-  my_nginx::site::static { $name: ssl => $ssl }
-
   $repo_path = "${my_nginx::params::gitroot}/${name}"
   $vhost_dir = "${my_nginx::params::wwwroot}/${name}"
 
