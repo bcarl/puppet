@@ -11,6 +11,8 @@ define my_nginx::site::static ($ssl=true, $html=undef, $default_server=false) {
     owner => root,
     group => root,
     mode => '0755',
+    recurse => true,
+    purge => true,
   }
 
   if $html {

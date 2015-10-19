@@ -8,3 +8,4 @@ modules/ntp
 modules/ssh
 modules/stdlib
 modules/sudo
+modules/vcsrepo

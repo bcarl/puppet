@@ -10,7 +10,7 @@ apt-get -y install git-core puppet
 git clone "https://github.com/bcarl/puppet.git" /etc/puppet
 
 # Install Puppet modules
-for module in jfryman-nginx puppetlabs-firewall puppetlabs-ntp puppetlabs-stdlib saz-ssh saz-sudo; do
+for module in jfryman-nginx puppetlabs-firewall puppetlabs-ntp puppetlabs-stdlib puppetlabs-vcsrepo saz-ssh saz-sudo; do
   puppet module install $module
 done
 
