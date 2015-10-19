@@ -1,4 +1,4 @@
-define my_nginx::site::jekyll ($git_repo, $ssl=true) {
+define my_nginx::site::jekyll ($git_repo, $git_branch='master', $ssl=true) {
   include jekyll
   include git
   include my_nginx
@@ -13,7 +13,7 @@ define my_nginx::site::jekyll ($git_repo, $ssl=true) {
     ensure   => latest,
     provider => git,
     source   => $git_repo,
-    revision => 'master',
+    revision => $git_branch,
   }
 
   exec { "jekyll build --source '${vcsrepo_path}' --destination '${site_path}'":
