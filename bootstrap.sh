@@ -5,7 +5,7 @@
 apt-get update
 apt-get -y install git-core puppet
 
-systemctl stop puppet.service
+killall puppet
 systemctl disable puppet.service
 
 # Clone the 'puppet' repo
