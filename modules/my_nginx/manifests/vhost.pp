@@ -1,10 +1,15 @@
-define my_nginx::vhost ($ssl=true, $default_server=false) {
+define my_nginx::vhost ($ssl=true, $default_server=false, $vhost_dir=undef) {
   include my_nginx
   include my_nginx::params
 
-  $vhost_dir = "${my_nginx::params::wwwroot}/${name}"
 
-  file { $vhost_dir:
+  if $vhost_dir {
+    $vhost_dir_actual = $vhost_dir
+  } else {
+    $vhost_dir_actual = "${my_nginx::params::wwwroot}/${name}"
+  }
+
+  file { $vhost_dir_actual:
     ensure => directory,
     owner => root,
     group => root,
@@ -30,14 +35,14 @@ define my_nginx::vhost ($ssl=true, $default_server=false) {
   nginx::resource::vhost { $name:
     ensure      => present,
     server_name => [$name],
-    www_root    => $vhost_dir,
+    www_root    => $vhost_dir_actual,
     ipv6_enable => true,
     listen_options => $listen_options,
     ipv6_listen_options => $ipv6_listen_options,
     rewrite_to_https => $rewrite_to_https,
     access_log  => "${my_nginx::params::logdir}/${name}_access.log",
     error_log   => "${my_nginx::params::logdir}/${name}_error.log",
-    require     => [File[$vhost_dir], File[$my_nginx::params::logdir]],
+    require     => [File[$vhost_dir_actual], File[$my_nginx::params::logdir]],
   }
 
   if $ssl {
@@ -52,7 +57,7 @@ define my_nginx::vhost ($ssl=true, $default_server=false) {
     nginx::resource::vhost { "${name}_ssl":
       ensure      => present,
       server_name => [$name],
-      www_root    => $vhost_dir,
+      www_root    => $vhost_dir_actual,
       ipv6_enable => true,
       ssl         => true,
       ssl_cert    => $cert,
@@ -62,7 +67,7 @@ define my_nginx::vhost ($ssl=true, $default_server=false) {
       ipv6_listen_options => $ipv6_listen_options,
       access_log  => "${my_nginx::params::logdir}/${name}_ssl_access.log",
       error_log   => "${my_nginx::params::logdir}/${name}_ssl_error.log",
-      require     => [File[$vhost_dir], File[$my_nginx::params::logdir], My_nginx::Cert[$name]],
+      require     => [File[$vhost_dir_actual], File[$my_nginx::params::logdir], My_nginx::Cert[$name]],
     }
   }
 }

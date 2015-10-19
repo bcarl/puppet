@@ -25,5 +25,6 @@ define my_nginx::site::jekyll ($repo, $branch='master', $ssl=true) {
   my_nginx::vhost { $name:
     ssl => $ssl,
     default_server => $default_server,
+    vhost_dir => $vhost_dir,
   }
 }
