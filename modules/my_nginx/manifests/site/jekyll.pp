@@ -1,7 +1,6 @@
 define my_nginx::site::jekyll ($repo, $branch='master', $ssl=true) {
-  include jekyll
-  include git
   include my_nginx::params
+  include my_packages
 
   $repo_path = "${my_nginx::params::gitroot}/${name}"
   $build_dir = "${repo_path}_build"
@@ -27,7 +26,7 @@ define my_nginx::site::jekyll ($repo, $branch='master', $ssl=true) {
     path => $my_nginx::params::execpath,
     unless => "test ${sha1_exec} = $(cat ${sha1_path})",
     notify => Service['nginx'],
-    require => [File[$my_nginx::params::wwwroot], Vcsrepo[$repo_path]],
+    require => [File[$my_nginx::params::wwwroot], Vcsrepo[$repo_path], Package['jekyll']],
   }
 
   my_nginx::vhost { $name:

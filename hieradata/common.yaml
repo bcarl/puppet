@@ -17,3 +17,18 @@ sudo::configs:
   sudo:
     content: '%sudo ALL=(ALL) NOPASSWD: ALL'
     priority: 10
+
+my_packages::gems:
+  - jekyll
+
+my_packages::packages:
+  - bash
+  - bash-completion
+  - curl
+  - git
+  - git-core
+  - openssl
+  - rsync
+  - wget
+
+my_ssh::port: 2422

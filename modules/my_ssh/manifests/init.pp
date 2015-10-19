@@ -1,4 +1,4 @@
-class my_ssh ($port = 2422) {
+class my_ssh ($port) {
   ensure_resource('group', 'ssh', {ensure => present})
 
   class { 'ssh':
