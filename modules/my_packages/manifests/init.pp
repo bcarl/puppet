@@ -1,10 +1,4 @@
-class my_packages ($gems, $packages) {
-  if $gems {
-    package { $gems:
-      ensure => installed,
-      provider => gem,
-    }
-  }
+class my_packages ($packages) {
   if $packages {
     package { $packages:
       ensure => installed,

@@ -1,4 +1,5 @@
 define my_nginx::site::jekyll ($repo, $branch='master', $ssl=true) {
+  include jekyll
   include my_nginx::params
   include my_packages
 

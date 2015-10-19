@@ -18,9 +18,6 @@ sudo::configs:
     content: '%sudo ALL=(ALL) NOPASSWD: ALL'
     priority: 10
 
-my_packages::gems:
-  - jekyll
-
 my_packages::packages:
   - bash
   - bash-completion
@@ -28,8 +25,6 @@ my_packages::packages:
   - git
   - git-core
   - openssl
-  - rubygems
-  - ruby-dev
   - rsync
   - wget
 
