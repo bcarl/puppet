@@ -2,6 +2,10 @@ class my_nginx {
   include nginx
   include my_nginx::params
 
+  file { '/var/www/html':
+    ensure => absent,
+  }
+
   file { [$my_nginx::params::certdir, $my_nginx::params::wwwroot,
           $my_nginx::params::gitroot, $my_nginx::params::buildroot]:
     ensure => directory,
