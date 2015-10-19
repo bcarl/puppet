@@ -1,4 +1,4 @@
-define my_nginx::vhost ($ssl=true, $default_server=false, $vhost_dir=undef) {
+define my_nginx::vhost ($ssl=true, $default_server=false, $vhost_dir=undef, $purge_vhost=true) {
   include my_nginx
   include my_nginx::params
 
@@ -14,8 +14,8 @@ define my_nginx::vhost ($ssl=true, $default_server=false, $vhost_dir=undef) {
     owner => root,
     group => root,
     mode => 0644,
-    recurse => true,
-    purge => true,
+    recurse => $purge_vhost,
+    purge => $purge_vhost,
   }
 
   if $default_server {
