@@ -16,7 +16,7 @@ define my_nginx::site::jekyll ($repo, $branch='master', $ssl=true) {
     revision => $branch,
   }
 
-  exec { "jekyll build --source '${vcsrepo_path}' --destination '${site_path}'":
+  exec { "jekyll build --safe --source '${vcsrepo_path}' --destination '${site_path}'":
     cwd => $vcsrepo_path,
     path => '/usr/bin:/usr/sbin:/bin',
     subscribe => Vcsrepo[$vcsrepo_path],
