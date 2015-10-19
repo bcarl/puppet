@@ -1,5 +1,7 @@
 # https://www.digitalocean.com/community/tutorials/how-to-set-up-a-masterless-puppet-environment-on-ubuntu-14-04
 class cron-puppet {
+  $puppet_update_sh = '/usr/local/sbin/puppet-update.sh'
+
   file { 'post-hook':
     ensure  => file,
     path    => '/etc/puppet/.git/hooks/post-merge',
@@ -10,7 +12,7 @@ class cron-puppet {
   }
   cron { 'puppet-apply':
     ensure  => present,
-    command => 'cd /etc/puppet && /usr/bin/git pull',
+    command => $puppet_update_sh,
     user    => root,
     minute  => '*/30',
     require => File['post-hook'],
@@ -22,7 +24,7 @@ class cron-puppet {
     group  => root,
     mode   => 0755,
   }
-  file { '/usr/local/sbin/puppet-update.sh':
+  file { $puppet_update_sh:
     ensure => file,
     source => 'puppet:///modules/cron-puppet/puppet-update.sh',
     owner  => root,
