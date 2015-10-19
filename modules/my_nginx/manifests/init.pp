@@ -4,9 +4,9 @@ class my_nginx {
 
   file { [$my_nginx::params::certdir, $my_nginx::params::wwwroot, $my_nginx::params::gitroot]:
     ensure => directory,
-    owner => 'root',
-    group => 'root',
-    mode => '0644',
+    owner  => root,
+    group  => root,
+    mode   => 0644,
   }
 
   firewall { '100 Allow inbound HTTP/HTTPS (v4)':

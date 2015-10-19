@@ -6,19 +6,24 @@ define my_nginx::site::jekyll ($repo, $branch='master', $ssl=true) {
 
   my_nginx::site::static { $name: ssl => $ssl }
 
-  $vcsrepo_path = "${my_nginx::params::gitroot}/${name}"
-  $site_path = "${my_nginx::params::wwwroot}/${name}"
+  $repo_path = "${my_nginx::params::gitroot}/${name}"
+  $vhost_dir = "${my_nginx::params::wwwroot}/${name}"
 
-  vcsrepo { $vcsrepo_path:
+  vcsrepo { $repo_path:
     ensure   => latest,
     provider => git,
     source   => $repo,
     revision => $branch,
   }
 
-  exec { "jekyll build --safe --source '${vcsrepo_path}' --destination '${site_path}'":
-    cwd => $vcsrepo_path,
-    path => '/usr/bin:/usr/sbin:/bin',
-    subscribe => Vcsrepo[$vcsrepo_path],
+  exec { "rm -rf '${vhost_dir}' && jekyll build --safe --source '${repo_path}' --destination '${vhost_dir}'":
+    cwd => $repo_path,
+    path => '/usr/local/bin:/usr/bin:/usr/sbin:/bin',
+    subscribe => Vcsrepo[$repo_path],
+  }
+
+  my_nginx::vhost { $name:
+    ssl => $ssl,
+    default_server => $default_server,
   }
 }
