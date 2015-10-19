@@ -4,6 +4,7 @@ modules/apt
 modules/concat
 modules/firewall
 modules/nginx
+modules/ntp
 modules/ssh
 modules/stdlib
 modules/sudo
