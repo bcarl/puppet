@@ -1,4 +1,4 @@
-class my_mosh {
+class mosh {
   require my_ssh
 
   package { 'mosh':
