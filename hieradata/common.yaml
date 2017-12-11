@@ -26,6 +26,7 @@ my_packages::packages:
   - git-core
   - openssl
   - rsync
+  - tmux
   - vim
   - wget
 
