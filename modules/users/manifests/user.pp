@@ -30,6 +30,7 @@ define users::user ($uid, $gid, $shell, $groups, $ssh_key) {
 
   users::user_file { "${home}/.bash_profile":
     ensure => present,
+    user   => $name,
     mode   => 0700,
     source => [
       "puppet:///modules/users/${name}.bash_profile",
@@ -40,6 +41,7 @@ define users::user ($uid, $gid, $shell, $groups, $ssh_key) {
 
   users::user_file { "${home}/.bashrc":
     ensure => present,
+    user   => $name,
     mode   => 0700,
     source => [
       "puppet:///modules/users/${name}.bashrc",
@@ -50,6 +52,7 @@ define users::user ($uid, $gid, $shell, $groups, $ssh_key) {
 
   users::user_file { "${home}/.tmux.conf":
     ensure => present,
+    user   => $name,
     mode   => 0755,
     source => [
       "puppet:///modules/users/${name}.tmux.conf",
@@ -95,11 +98,11 @@ define users::user ($uid, $gid, $shell, $groups, $ssh_key) {
   }
 }
 
-define users::user_file ($ensure, $mode, $source) {
+define users::user_file ($ensure, $user, $mode, $source) {
   concat { $name:
     ensure => $ensure,
-    owner  => $name,
-    group  => $name,
+    owner  => $user,
+    group  => $user,
     mode   => $mode,
     ensure_newline => true,
   }
