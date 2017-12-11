@@ -1,4 +1,4 @@
-node 'dev.bcarl.me' {
+node /^dev[\.-].*$/ {
   include common
   include my_sites
 }
