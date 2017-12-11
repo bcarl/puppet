@@ -6,5 +6,6 @@ class common {
   include my_ssh
   include my_utc
   include sudo
+  include tmux
   include users
 }
