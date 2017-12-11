@@ -28,27 +28,37 @@ define users::user ($uid, $gid, $shell, $groups, $ssh_key) {
     require => User[$name],
   }
 
-  $bash_profile = "${home}/.bash_profile"
-
-  concat { $bash_profile:
+  users::user_file { "${home}/.bash_profile":
     ensure => present,
-    owner  => $name,
-    group  => $name,
     mode   => 0700,
-    ensure_newline => true,
-  }
-  concat::fragment { "${bash_profile} header":
-    target => $bash_profile,
-    source => 'puppet:///modules/users/header.bash_profile',
-    order  => '01',
-  }
-  concat::fragment { "${bash_profile} user":
-    target => $bash_profile,
     source => [
       "puppet:///modules/users/${name}.bash_profile",
       'puppet:///modules/users/default.bash_profile',
     ],
-    order  => '02',
+    require => File[$home],
+  }
+
+  users::user_file { "${home}/.bashrc":
+    ensure => present,
+    mode   => 0700,
+    source => [
+      "puppet:///modules/users/${name}.bashrc",
+      'puppet:///modules/users/default.bashrc',
+    ],
+    require => File[$home],
+  }
+
+  users::user_file { "${home}/.tmux.conf":
+    ensure => present,
+    mode   => 0755,
+    source => [
+      "puppet:///modules/users/${name}.tmux.conf",
+      'puppet:///modules/users/default.tmux.conf',
+    ],
+    require => [
+      File[$home],
+      File['/usr/local/bin/tmux-login-shell'],
+    ],
   }
 
   $ssh_dir = "${home}/.ssh"
@@ -72,7 +82,7 @@ define users::user ($uid, $gid, $shell, $groups, $ssh_key) {
   }
 
   Ssh_authorized_key {
-    require =>  File[$authorized_keys]
+    require => File[$authorized_keys],
   }
 
   if $ssh_key {
@@ -83,16 +93,24 @@ define users::user ($uid, $gid, $shell, $groups, $ssh_key) {
       key    => $ssh_key['key'],
     }
   }
+}
 
-  file { "${home}/.tmux.conf":
-    ensure  => file,
-    mode    => 0755,
-    owner   => $name,
-    group   => $name,
-    source  => [
-      "puppet:///modules/users/${name}.tmux.conf",
-      'puppet:///modules/users/default.tmux.conf',
-    ],
-    require => File['/usr/local/bin/tmux-login-shell'],
+define users::user_file ($ensure, $mode, $source) {
+  concat { $name:
+    ensure => $ensure,
+    owner  => $name,
+    group  => $name,
+    mode   => $mode,
+    ensure_newline => true,
+  }
+  concat::fragment { "${name} header":
+    target => $name,
+    source => 'puppet:///modules/users/header',
+    order  => '01',
+  }
+  concat::fragment { "${name} user":
+    target => $name,
+    source => $source,
+    order  => '02',
   }
 }
