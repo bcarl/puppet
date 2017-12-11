@@ -4,7 +4,6 @@ class common {
   include my_packages
   include my_ssh
   include my_utc
-  include '::ntp'
   include sudo
   include users
 }
