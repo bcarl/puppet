@@ -24,8 +24,10 @@ my_packages::packages:
   - curl
   - git
   - git-core
+  - mosh
   - openssl
   - rsync
+  - vim
   - wget
 
 my_ssh::port: 2422
