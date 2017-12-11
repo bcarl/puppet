@@ -31,6 +31,8 @@ function _cleanup {
 ###########
 if [ "$(uname -s)" == "Darwin" ]; then
 
+  PS1_HOSTNAME="\h"
+
   _cleanup s
   function s {
     if [ "$TMUX" ]; then
@@ -60,7 +62,7 @@ if [ "$(uname -s)" == "Darwin" ]; then
 #  Linux  #
 ###########
 else
-  :
+  PS1_HOSTNAME=$(echo "$HOSTNAME" | cut -d- -f1)
 fi
 
 _cleanup _prompt_command
@@ -114,9 +116,9 @@ function setup_ps1 {
     export GIT_PS1_SHOWUNTRACKEDFILES='1'
     export GIT_PS1_SHOWUPSTREAM='auto'
 
-    PS1='$(__git_ps1 "\[\033[00m\](\[\033[01;35m\]%s\[\033[00m\])")\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]$ '
+    PS1='$(__git_ps1 "\[\033[00m\](\[\033[01;35m\]%s\[\033[00m\])")\[\033[01;32m\]\u@${PS1_HOSTNAME}\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]$ '
   else
-    PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]$ '
+    PS1='\[\033[01;32m\]\u@${PS1_HOSTNAME}\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]$ '
   fi
 }
 setup_ps1
