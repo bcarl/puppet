@@ -49,7 +49,7 @@ define users::user ($uid, $gid, $shell, $groups, $ssh_key) {
     ],
     require => [
       File[$home],
-      File['/usr/local/bin/scm-prompt'],
+      Users::User_file['/usr/local/bin/scm-prompt'],
     ],
   }
 
