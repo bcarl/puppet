@@ -84,3 +84,6 @@ fi
 if [ -s "$HOME/.ssh/config" ]; then
   complete -o default -o nospace -W "$(/usr/bin/env ruby -ne 'puts $_.split(/[,\s]+/)[1..-1].reject{|host| host.match(/\*|\?/)} if $_.match(/^\s*Host\s+/);' < $HOME/.ssh/config)" scp sftp ssh mosh
 fi
+
+# go into tmux - KEEP AT END
+[ -x /usr/local/bin/tmux-auto-session.sh ] && /usr/local/bin/tmux-auto-session.sh
