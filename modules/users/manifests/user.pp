@@ -83,4 +83,16 @@ define users::user ($uid, $gid, $shell, $groups, $ssh_key) {
       key    => $ssh_key['key'],
     }
   }
+
+  file { "${home}/.tmux.conf":
+    ensure  => file,
+    mode    => 0755,
+    owner   => $name,
+    group   => $name,
+    source  => [
+      "puppet:///modules/users/${name}.tmux.conf",
+      'puppet:///modules/users/default.tmux.conf',
+    ],
+    require => File['/usr/local/bin/tmux-login-shell'],
+  }
 }

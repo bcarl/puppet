@@ -86,4 +86,4 @@ if [ -s "$HOME/.ssh/config" ]; then
 fi
 
 # go into tmux - KEEP AT END
-[ -x /usr/local/bin/tmux-auto-session.sh ] && /usr/local/bin/tmux-auto-session.sh
+hash tmux-auto-session 2>/dev/null && tmux-auto-session
