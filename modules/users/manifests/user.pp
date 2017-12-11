@@ -47,7 +47,10 @@ define users::user ($uid, $gid, $shell, $groups, $ssh_key) {
       "puppet:///modules/users/${name}.bashrc",
       'puppet:///modules/users/default.bashrc',
     ],
-    require => File[$home],
+    require => [
+      File[$home],
+      File['/usr/local/bin/scm-prompt'],
+    ],
   }
 
   users::user_file { "${home}/.tmux.conf":
@@ -95,25 +98,5 @@ define users::user ($uid, $gid, $shell, $groups, $ssh_key) {
       type   => $ssh_key['type'],
       key    => $ssh_key['key'],
     }
-  }
-}
-
-define users::user_file ($ensure, $user, $mode, $source) {
-  concat { $name:
-    ensure => $ensure,
-    owner  => $user,
-    group  => $user,
-    mode   => $mode,
-    ensure_newline => true,
-  }
-  concat::fragment { "${name} header":
-    target => $name,
-    source => 'puppet:///modules/users/header',
-    order  => '01',
-  }
-  concat::fragment { "${name} user":
-    target => $name,
-    source => $source,
-    order  => '02',
   }
 }
